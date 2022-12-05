@@ -1,7 +1,7 @@
 const readFile = require('../utils/read_input_file_line_by_line');
 const priorityString = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 let priorityScore = 0;
-const solveDay3 = (filename) => {
+const solveDay3Part1 = (filename) => {
     readFile((line) => {
         if (line) {
         const halfLength = line.length / 2;
@@ -18,6 +18,6 @@ const solveDay3 = (filename) => {
     return priorityScore;
 }
 
-module.exports = solveDay3;
+module.exports = solveDay3Part1;
 
-console.log(solveDay3('input.txt'));
+//console.log(solveDay3Part1('input.txt'));
