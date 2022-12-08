@@ -1,12 +1,12 @@
 const solve = (input, chunkLength) => {
-    let index = 0;
-    while (index < input.length - chunkLength) {
-        const chunk = input.slice(index, index + chunkLength);
-        if (new Set(chunk).size === chunkLength) {
-            break;
-        }
-        index++;
+  let index = 0;
+  while (index < input.length - chunkLength) {
+    const chunk = input.slice(index, index + chunkLength);
+    if (new Set(chunk).size === chunkLength) {
+      break;
     }
-    return index + chunkLength;
-}
+    index++;
+  }
+  return index + chunkLength;
+};
 module.exports = solve;
