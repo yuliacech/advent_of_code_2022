@@ -24,6 +24,7 @@ const processInitialData = (initialData) => {
   }
   return monkeys;
 };
+
 const getOperation = (line) => {
   const operationString = line.replace('Operation: new = ', '');
   const parts = operationString.split(/\s[+*]\s/);
@@ -46,7 +47,7 @@ const getOperation = (line) => {
       (value) => BigInt(parts[0]) * BigInt(parts[1]);
 };
 
-const solvePart1 = (filename, rounds, isRelief) => {
+const solve = (filename, rounds, isRelief) => {
   const data = fs.readFileSync(filename, 'utf8').trim();
   const initialData = data.split('\n\n');
   const monkeys = processInitialData(initialData);
@@ -100,7 +101,8 @@ const solvePart1 = (filename, rounds, isRelief) => {
   return max1 * max2;
 };
 
-module.exports = solvePart1;
+module.exports = solve;
 
 const filename = resolve(__dirname, './input.txt');
-console.log(solvePart1(filename, 10000, false));
+console.log(solve(filename, 20, true));
+console.log(solve(filename, 10000, false));
