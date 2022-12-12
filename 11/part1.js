@@ -50,14 +50,10 @@ const solvePart1 = (filename, rounds, isRelief) => {
   const data = fs.readFileSync(filename, 'utf8').trim();
   const initialData = data.split('\n\n');
   const monkeys = processInitialData(initialData);
-  const allDivisors = monkeys.reduce((prev, curr) => {
-    console.log(prev);
-    console.log(curr);
-    if (prev.divisor) {
-      return prev.divisor * curr.divisor;
-    }
-    return prev * curr.divisor;
-  }, BigInt(1));
+  let allDivisors = 1n;
+  monkeys.map((m) => {
+    allDivisors = allDivisors * m.divisor;
+  });
   for (let i = 0; i < rounds; i++) {
     // process each monkey
     for (let j = 0; j < monkeys.length; j++) {
@@ -71,7 +67,7 @@ const solvePart1 = (filename, rounds, isRelief) => {
         let worryLevel = operation(item);
         // relief
         if (isRelief) {
-          worryLevel = Math.floor(worryLevel / 3);
+          worryLevel = worryLevel / 3n;
         }
         // test
         const remainder = worryLevel % divisor;
@@ -82,8 +78,8 @@ const solvePart1 = (filename, rounds, isRelief) => {
           destMonkey = failedMonkey;
         }
         // manage
-        if (worryLevel > BigInt(Number.MAX_VALUE)) {
-          worryLevel = worryLevel - BigInt(Number.MAX_VALUE);
+        if (!isRelief) {
+          worryLevel = worryLevel % allDivisors;
         }
         // throw
         monkeys[destMonkey].items.push(worryLevel);
@@ -107,4 +103,4 @@ const solvePart1 = (filename, rounds, isRelief) => {
 module.exports = solvePart1;
 
 const filename = resolve(__dirname, './input.txt');
-// console.log(solvePart1(filename));
+console.log(solvePart1(filename, 10000, false));
